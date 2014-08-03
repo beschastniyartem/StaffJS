@@ -24,7 +24,6 @@ public class Department {
     private String name;
     public Department() {
     }
-    String name2;
     public Department(String name) {
         this.name = name;
     }
