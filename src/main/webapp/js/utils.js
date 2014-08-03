@@ -24,11 +24,9 @@ PageController = EventSupport.extend({
 
     getController: function (name) {
         var controller = window['controllers'][name];
-
         if (!controller) {
             controller = window['controllers'][name] = new window[name]();
         }
-
         return controller;
     },
 
@@ -57,30 +55,31 @@ DepListPage = PageController.extend({
             $('.table').empty();
             this.table = new Table($this, header, data);
             this.table.subscribe('deleteDepartment', function (e, data) {
-                $.proxy($this.onDDCl(e, data), $this);
+                $this.onDDCl(e, data);
             }, this);
             this.table.subscribe('showEmployee', function (e, data) {
-                $.proxy($this.onGoToEmployerListPage(e, data), $this);
+                $this.onGoToEmployerListPage(e, data);
             }, this);
             this.table.subscribe('updateDepartmentDialog', function (e, data) {
-                $.proxy($this.departmentUpdateDialog(e, data), $this);
-            }, this);
+                $this.departmentUpdateDialog(e, data);
+            }, $this);
+            $thisTable = this.table;
         });
     },
 
     departmentAddDialog: function () {
         this.addDialog = new AddDepartmentDialog(this);
         this.addDialog.subscribe('addDepartment', function (e, data) {
-            $.proxy(this.onDAdCl(e, data), this);
+            this.onDAdCl(e, data);
         }, this);
     },
 
     departmentUpdateDialog: function (e, data) {
-        $this = this;
+
         $('.updateDepartmentDialog').empty();
         this.updateDialog = new UpdateDepartmentDialog(this.div, data);
         this.updateDialog.subscribe('updateDepartment', function (e, data) {
-            $.proxy(this.onDUpCl(e, data), this);
+            this.onDUpCl(e, data);
         }, this);
     },
 
@@ -180,18 +179,19 @@ EmplListPage = PageController.extend({
             var header = ["Employee ID", "Email", "Salary", "Birthday"];
             this.employeeTable = new EmployeeTable($this, header, data);
             this.employeeTable.subscribe('deleteEmployee', function (e, data) {
-                $.proxy($this.onEDCl(e, data), $this);
+                $this.onEDCl(e, data);
             }, this);
             this.employeeTable.subscribe('updateEmployeeDialog', function (e, data) {
-                $.proxy($this.employeeUpdateDialog(e, data), $this);
+                $this.employeeUpdateDialog(e, data);
             }, this);
         });
     },
 
     employeeAddDialog: function (dep_id,e) {
+     /*   $.('.addEmployeeDialog').empty();*/
         this.addEmployeeDialog = new AddEmployeeDialog(this.div, dep_id);
         this.addEmployeeDialog.subscribe('addEmployee', function (e, data) {
-            $.proxy(this.onEAdCl(e, data), this);
+            this.onEAdCl(e, data);
         }, this);
     },
 
@@ -200,7 +200,7 @@ EmplListPage = PageController.extend({
 
         this.updateEmployeeDialog = new UpdateEmployeeDialog(this.div, data);
         this.updateEmployeeDialog.subscribe('updateEmployee', function (e, data) {
-            $.proxy(this.onEUpCl(e, data), this);
+            this.onEUpCl(e, data);
         }, this);
     },
 
