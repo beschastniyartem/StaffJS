@@ -1,0 +1,2 @@
+var department = new DepListPage();
+

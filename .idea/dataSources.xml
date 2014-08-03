@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="169379791">
+    <data-source source="LOCAL" name="hibernate-annotation.cfg.xml" uuid="cbfcf198-cb6d-4080-af02-6cd4ab3b8e46">
+      <driver-ref>mysql</driver-ref>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/stuff</jdbc-url>
+      <user-name>root</user-name>
+      <user-password>df9b</user-password>
+      <libraries>
+        <library>
+          <url>file://$MAVEN_REPOSITORY$/mysql/mysql-connector-java/5.1.21/mysql-connector-java-5.1.21.jar</url>
+        </library>
+      </libraries>
+    </data-source>
+  </component>
+</project>
+
