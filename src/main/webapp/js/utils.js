@@ -188,7 +188,7 @@ EmplListPage = PageController.extend({
     },
 
     employeeAddDialog: function (dep_id,e) {
-     /*   $.('.addEmployeeDialog').empty();*/
+        $('.addEmployeeDialog').empty();
         this.addEmployeeDialog = new AddEmployeeDialog(this.div, dep_id);
         this.addEmployeeDialog.subscribe('addEmployee', function (e, data) {
             this.onEAdCl(e, data);
