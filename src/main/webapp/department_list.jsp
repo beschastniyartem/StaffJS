@@ -11,11 +11,32 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+    <script data-main="js/configRequire" src="<c:url value="js/lib/bower_components/requirejs/require.js" />"></script>
     <title>Spring MVC - Ajax</title>
-    <script src="js/jquery-1.11.1.min.js"></script>
+
     <link rel="stylesheet" type="text/css" href="css/style.css">
+
+  <%--  <script src="js/jquery-1.11.1.min.js"></script>
+
+    <script src="js/SimpleInheritance.js"></script>
+
+    <script src="js/eventSupport.js"></script>
+    <script src="js/dataSource.js"></script>
+    <script src="js/ajaxDataSource.js"></script>
+
+    <script src="js/addDepartmentDialog.js"></script>
+    <script src="js/updateDepartmentDialog.js"></script>
+    <script src="js/addEmployeeDialog.js"></script>
+    <script src="js/updateEmployeeDialog.js"></script>
+
+    <script src="js/employeeTable.js"></script>
+    <script src="js/table.js"></script>
+
+    <script src="js/utils.js"></script>--%>
+
 </head>
 <body>
+    <%--<script src="js/main.js"></script>--%>
 <%--<div id="container">--%>
 
 
@@ -29,21 +50,6 @@
 <div id="editEmployee"></div>--%>
 
 
-<script src="js/SimpleInheritance.js"></script>
-<script src="js/eventSupport.js"></script>
-<script src="js/dataSource.js"></script>
-<script src="js/ajaxDataSource.js"></script>
-
-<script src="js/addDepartmentDialog.js"></script>
-<script src="js/updateDepartmentDialog.js"></script>
-<script src="js/addEmployeeDialog.js"></script>
-<script src="js/updateEmployeeDialog.js"></script>
-
-<script src="js/employeeTable.js"></script>
-<script src="js/table.js"></script>
-
-<script src="js/utils.js"></script>
-<script src="js/main.js"></script>
 <%--<h1>List of departments</h1>
 <p>Here you can see the list of the Departments, edit them, add,remove or see list of department employees .</p>
 <button><a href="/add.html">Add department </a></button>
