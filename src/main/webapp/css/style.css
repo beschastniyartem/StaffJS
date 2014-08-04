@@ -35,3 +35,18 @@ label {
     color: red;
     font-size: 0.8em;
 }
+
+.exceptionEmail {
+    color: red;
+    font-size: 0.8em;
+}
+
+.exceptionBirthday {
+    color: red;
+    font-size: 0.8em;
+}
+
+.exceptionSalary {
+    color: red;
+    font-size: 0.8em;
+}

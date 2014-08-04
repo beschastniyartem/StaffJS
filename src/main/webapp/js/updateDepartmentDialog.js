@@ -23,6 +23,6 @@ UpdateDepartmentDialog = EventSupport.extend({
             .appendTo(container);
     },
     onSubmit:function(){
-        this.fire('updateDepartment',{text:this.$input.val(),dep_id:this.$input.attr('id')});
+        this.fire('updateDepartment',{name:this.$input.val(),dep_id:this.$input.attr('id')});
     }
 });

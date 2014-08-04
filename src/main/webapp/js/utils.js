@@ -35,6 +35,10 @@ PageController = EventSupport.extend({
             .html(name)
             .addClass('pageTitle')
             .appendTo(this.div);
+    },
+
+    exceptionMessage:function(message,container){
+
     }
 });
 DepListPage = PageController.extend({
@@ -86,30 +90,26 @@ DepListPage = PageController.extend({
     onDAdCl: function (e, data) {
         $this = this;
         $('.exception').empty();
-        var name = data.text;
-        if (name) {
-            var json = { "dep_id": "0", "name": name};
-            $.post('/rest/add', json, function (response) {
+        if (data.name) {
+            $.post('/rest/add', data, function (response) {
                 if (!response) {
                     $this.departmentList();
                 } else {
                     $this.exceptionMessage(response, $this.addDialog.div);
                 }
             });
-            e.preventDefault();
+          /*  e.preventDefault();*/
         } else {
             this.exceptionMessage('Not Empty', this.addDialog.div);
-            e.preventDefault();
+          /*  e.preventDefault();*/
         }
     },
 
     onDUpCl: function (e, data) {
         $this = this;
         $('.exception').empty();
-        var name = data.text;
-        var json = { "dep_id": data.dep_id, "name": name};
-        if (name) {
-            $.post('/rest/edit', json, function (response) {
+        if (data.name) {
+            $.post('/rest/edit', data, function (response) {
                 if (!response) {
                     $this.updateDialog.div.hide();
                     $this.departmentList();
@@ -151,6 +151,7 @@ DepListPage = PageController.extend({
 });
 EmplListPage = PageController.extend({
     initialized: false,
+    exceptionEmailInitialized: false,
 
     _getName: function () {
         return 'EmplListPage';
@@ -226,22 +227,73 @@ EmplListPage = PageController.extend({
 
     onEAdCl: function (e, data) {
         $this = this;
-        var json = { "email": data.email, "salary": data.salary, "birthday": data.birthday, "dep_id": data.dep_id};
-        $.post('/rest/addEmployee', json, function (response) {
-            $this.employeeList(data.dep_id);
+        if(data.birthday){
+        $('.exceptionBirthday').remove();
+        $.post('/rest/addEmployee', data, function (response) {
+            if(!response.email && !response.salary){
+                $('.employeeTable').remove();
+                $('.exceptionEmail').remove();
+                $('.exceptionSalary').remove();
+                $this.employeeList(data.dep_id);
+            }else{
+                $this.exceptionMessage(response,$this.addEmployeeDialog);
+            }
         });
+        }else{
+            data.birthday = 'Birthday not valid';
+            this.exceptionWithOutRequest(data,this.addEmployeeDialog)
+        }
 
         e.preventDefault();
     },
 
     onEUpCl:function(e, data) {
         $this = this;
+        if(data.birthday){
+        $('.exceptionBirthday').remove();
         $.post('/rest/editEmployee', data, function (response) {
-            $this.employeeList(data.dep_id);
-            $('.updateEmployeeDialog').empty();
-                    /*$('.updateEmployeeForm').hide();*/
+            if(!response.email && !response.salary){
+                $('.employeeTable').remove();
+                $('.updateEmployeeDialog').remove();
+                $this.employeeList(data.dep_id);
+            }
+            else{
+                $this.exceptionMessage(response,$this.updateEmployeeDialog);
+            }
         });
+        }else{
+            data.birthday = 'Birthday not valid';
+            this.exceptionWithOutRequest(data,this.updateEmployeeDialog)
+        }
+        /*e.preventDefault();*/
+    },
 
-        e.preventDefault();
+    exceptionMessage: function (message, exceptionContainer) {
+        $this = this;
+        $('.exceptionEmail').remove();
+        if(message.email && !$this.exceptionEmailInitialized){
+                this.exceptionEmailForm = $('<label/>')
+                .addClass('exceptionEmail')
+                .html(message.email)
+                .insertAfter($(exceptionContainer.$inputEmail));
+        }
+        $('.exceptionSalary').remove();
+        if(message.salary ){
+            this.exceptionSalaryForm = $('<label/>')
+                .addClass('exceptionSalary')
+                .html(message.salary)
+                .insertAfter($(exceptionContainer.$inputSalary));
+        }
+    },
+
+    exceptionWithOutRequest:function(message, exceptionContainer){
+        $('.exceptionBirthday').remove();
+        if(message.birthday) {
+            this.exceptionBirthdayForm = $('<label/>')
+                .addClass('exceptionBirthday')
+                .html(message.birthday)
+                .insertAfter($(exceptionContainer.$inputBirthday));
+        }
+
     }
 });

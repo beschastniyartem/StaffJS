@@ -4,6 +4,7 @@ import com.artem.trainee.model.Department;
 import com.artem.trainee.model.Employee;
 import com.artem.trainee.service.SpringService.DepartmentService;
 import com.artem.trainee.service.SpringService.EmployeeService;
+import com.artem.trainee.utils.ValidationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,6 +20,9 @@ import java.util.Map;
 public class RestEmployeeController {
     @Autowired
     private EmployeeService employeeService;
+    @Autowired
+    private ValidationUtils validationUtils;
+
     @RequestMapping(value = "/employee/{dep_id}")
     public @ResponseBody
     List<Employee> employeeList(@PathVariable Integer dep_id) {
@@ -34,13 +38,22 @@ public class RestEmployeeController {
 
     @RequestMapping(value = "/addEmployee")
     @ResponseBody
-    public void addSubmitEmployee(Employee employee) {
-        employeeService.addEmployee(employee);
+    public Map<String, String> addSubmitEmployee(Employee employee) {
+        Map<String, String> errors = validationUtils.validation(employee);
+        if(errors.isEmpty()) {
+            employeeService.addEmployee(employee);
+        }
+        return errors;
     }
 
     @RequestMapping(value = "/editEmployee")
     @ResponseBody
-    public void editSubmitEmployee(Employee employee) {
-        employeeService.updateEmployee(employee);
+    public Map<String, String> editSubmitEmployee(Employee employee) {
+        Map<String, String> errors = validationUtils.validation(employee);
+        if(errors.isEmpty()) {
+            employeeService.updateEmployee(employee);
+        }
+        return errors;
+
     }
 }

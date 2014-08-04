@@ -17,6 +17,6 @@ AddDepartmentDialog = EventSupport.extend({
             .appendTo(container.div);
     },
     onSubmit:function(){
-        this.fire('addDepartment',{text:this.$input.val()});
+        this.fire('addDepartment',{name:this.$input.val()});
     }
 });
