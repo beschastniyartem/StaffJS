@@ -43,7 +43,6 @@ PageController = EventSupport.extend({
 });
 DepListPage = PageController.extend({
     init: function () {
-        $this = this;
         this._super();
         this.setPageTitle("Departmetn List");
         this.departmentList();
@@ -65,9 +64,8 @@ DepListPage = PageController.extend({
                 $this.onGoToEmployerListPage(e, data);
             }, this);
             this.table.subscribe('updateDepartmentDialog', function (e, data) {
-                $this.departmentUpdateDialog(e, data);
+                this.departmentUpdateDialog(e, data);
             }, $this);
-            $thisTable = this.table;
         });
     },
 

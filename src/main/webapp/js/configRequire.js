@@ -8,8 +8,14 @@ require.config({
     }
 });
 
+require(['require', './DepListPage', 'domReady'], function(require, DepListPage) {
+    require(['domReady!'], function () {
+        new DepListPage();
+/*        var department = new Table();*/
+    });
+});
 
-require(['require', 'jquery', 'SimpleInheritance',
+/*require(['require', 'jquery', 'SimpleInheritance',
         'eventSupport','dataSource','ajaxDataSource',
         'addDepartmentDialog','updateDepartmentDialog','addEmployeeDialog','updateEmployeeDialog',
         'employeeTable','table',
@@ -19,4 +25,5 @@ require(['require', 'jquery', 'SimpleInheritance',
         require(['domReady!'], function () {
             var department = new DepListPage();
         });
-});
+});*/
+
